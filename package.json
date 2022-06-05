@@ -1,0 +1,17 @@
+{
+  "name": "twix",
+  "version": "1.0.0",
+  "description": "A chat boostraped with Node, React, Socket.IO, and Material-UI",
+  "main": "src/index.js",
+  "repository": "https://github.com/RenanTKN/twix",
+  "author": "RenanTKN",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "socket.io": "^4.5.1"
+  }
+}
