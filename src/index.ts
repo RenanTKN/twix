@@ -1,7 +1,7 @@
-const express = require("express");
-const http = require("http");
-const { Server } = require("socket.io");
-const path = require("path");
+import express from "express";
+import http from "http";
+import { Server } from "socket.io";
+import path from "path";
 
 const PORT = process.env.PORT || 3001;
 const WEBAPP_PATH = "../webapp/build";
@@ -12,11 +12,11 @@ const io = new Server(server);
 
 app.use(express.static(path.resolve(__dirname, WEBAPP_PATH)));
 
-app.get("/api", (req, res) => {
+app.get("/api", (_, res) => {
   res.json({ message: "Hello from server!" });
 });
 
-app.get("*", (req, res) => {
+app.get("*", (_, res) => {
   res.sendFile(path.resolve(__dirname, WEBAPP_PATH, "index.html"));
 });
 
@@ -26,7 +26,6 @@ io.on("connection", (socket) => {
     console.log("user disconnected");
   });
   socket.on("message", (msg) => {
-    console.log(msg);
     io.emit("message", msg);
   });
 });
