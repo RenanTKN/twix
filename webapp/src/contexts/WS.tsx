@@ -1,6 +1,14 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 import { io } from "socket.io-client";
+
+import { ToastContext } from "./ToastContext";
 
 const socket = io();
 
@@ -22,6 +30,7 @@ export interface Message {
 
 interface WSData {
   messages: Message[];
+  sendLoginNotification: (name: string) => void;
   sendMessage: (message: Message) => void;
 }
 
@@ -29,12 +38,21 @@ export const WSContext = createContext({} as WSData);
 
 export const WSProvider = ({ children }: WSProviderProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const { toastInfo } = useContext(ToastContext);
 
   useEffect(() => {
     socket.on("message", (msg: Message) => {
       setMessages((m) => [...m, msg]);
     });
-  }, []);
+
+    socket.on("user login", (name: string) => {
+      toastInfo(`${name} joined the chat`);
+    });
+  }, [toastInfo]);
+
+  const sendLoginNotification = (name: string) => {
+    socket.emit("user login", name);
+  };
 
   const sendMessage = (msg: Message) => {
     socket.emit("message", msg);
@@ -42,6 +60,7 @@ export const WSProvider = ({ children }: WSProviderProps) => {
 
   const WSProviderValue = {
     messages,
+    sendLoginNotification,
     sendMessage,
   };
 

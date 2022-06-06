@@ -28,6 +28,9 @@ io.on("connection", (socket: any) => {
   socket.on("message", (msg: any) => {
     io.emit("message", msg);
   });
+  socket.on("user login", (name: string) => {
+    io.emit("user login", name);
+  });
 });
 
 server.listen(PORT, () => {

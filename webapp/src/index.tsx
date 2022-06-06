@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import { AuthProvider } from "./contexts/AuthContext";
+import { ToastProvider } from "./contexts/ToastContext";
 import { WSProvider } from "./contexts/WS";
 import reportWebVitals from "./reportWebVitals";
 import theme from "./theme";
@@ -17,9 +18,11 @@ root.render(
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <WSProvider>
-          <App />
-        </WSProvider>
+        <ToastProvider>
+          <WSProvider>
+            <App />
+          </WSProvider>
+        </ToastProvider>
       </ThemeProvider>
     </BrowserRouter>
   </AuthProvider>
