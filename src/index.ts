@@ -3,7 +3,7 @@ import http from "http";
 import { Server } from "socket.io";
 import path from "path";
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 const WEBAPP_PATH = "../webapp/build";
 
 const app = express();

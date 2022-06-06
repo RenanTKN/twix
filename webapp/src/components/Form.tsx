@@ -1,14 +1,18 @@
 import React from "react";
 
-import { Box, Button, ButtonGroup, Grid, TextField } from "@mui/material";
 import { Send as SendIcon } from "@mui/icons-material";
+import { Box, Button, ButtonGroup, Grid, TextField } from "@mui/material";
+import { useFormik } from "formik";
 import * as yup from "yup";
 
+import { AuthContext } from "../contexts/AuthContext";
 import { WSContext } from "../contexts/WS";
-import { useFormik } from "formik";
 
 const Form = () => {
   const { sendMessage } = React.useContext(WSContext);
+  const { profile } = React.useContext(AuthContext);
+  const name = profile?.name!;
+  const imageUrl = profile?.imageUrl!;
 
   const formik = useFormik({
     initialValues: {
@@ -20,7 +24,7 @@ const Form = () => {
     onSubmit: (values) => {
       const { message } = values;
       const timestamp = +new Date();
-      sendMessage({ message, timestamp });
+      sendMessage({ imageUrl, message, name, timestamp });
       formik.resetForm();
     },
   });

@@ -14,6 +14,8 @@ interface WSProviderProps {
 }
 
 export interface Message {
+  name: string;
+  imageUrl: string;
   message: string;
   timestamp: number;
 }
