@@ -1,5 +1,4 @@
 import { Box, Card, CardContent, Grid } from "@mui/material";
-import OAuthLogout from "../OAuth/Logout";
 
 import OAuth from "../OAuth/Login";
 
@@ -21,7 +20,6 @@ const Login = () => (
           </Grid>
         </Grid>
       </CardContent>
-      <OAuthLogout />
     </Card>
   </Box>
 );
