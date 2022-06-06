@@ -1,9 +1,9 @@
-import express from "express";
-import http from "http";
-import { Server } from "socket.io";
-import path from "path";
+const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
+const path = require("path");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const WEBAPP_PATH = "../webapp/build";
 
 const app = express();
@@ -12,20 +12,20 @@ const io = new Server(server);
 
 app.use(express.static(path.resolve(__dirname, WEBAPP_PATH)));
 
-app.get("/api", (_, res) => {
+app.get("/api", (_: any, res: any) => {
   res.json({ message: "Hello from server!" });
 });
 
-app.get("*", (_, res) => {
+app.get("*", (_: any, res: any) => {
   res.sendFile(path.resolve(__dirname, WEBAPP_PATH, "index.html"));
 });
 
-io.on("connection", (socket) => {
+io.on("connection", (socket: any) => {
   console.log("a user connected");
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });
-  socket.on("message", (msg) => {
+  socket.on("message", (msg: any) => {
     io.emit("message", msg);
   });
 });
